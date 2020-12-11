@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
 import ru.netology.page.DBInteractionPage;
 import ru.netology.page.LoginPage;
+import ru.netology.page.VerificationPage;
 
 import java.sql.SQLException;
 
@@ -31,6 +32,21 @@ public class LoginTest {
         LoginPage login = new LoginPage();
         val verificationPage = login.validLoginSessionForDifferentUser();
         verificationPage.validVerify();
+        DBInteractionPage.deleteCodes();
+    }
+
+    @Test
+    void shouldShowErrorNotificationOnLoginPage() throws SQLException {
+        LoginPage login = new LoginPage();
+        login.invalidLoginSession();
+        DBInteractionPage.deleteCodes();
+    }
+
+    @Test
+    void shouldShowErrorNotificationOnVerificationPage() throws SQLException {
+        LoginPage login = new LoginPage();
+        val verificationPage = login.validLoginSession();
+        verificationPage.invalidVerify();
         DBInteractionPage.deleteCodes();
     }
 
