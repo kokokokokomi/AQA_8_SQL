@@ -19,4 +19,5 @@ dependencies {
     testImplementation 'mysql:mysql-connector-java:8.0.22'
     testImplementation 'com.codeborne:selenide:5.11.0'
     testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
+
 }
