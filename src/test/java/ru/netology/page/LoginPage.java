@@ -2,6 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 import ru.netology.data.DataHelper;
 import java.sql.SQLException;
 import static com.codeborne.selenide.Selenide.$;
@@ -26,8 +27,23 @@ public class LoginPage {
         return new VerificationPage();
     }
 
-    public void invalidLoginSession () throws SQLException {
+    public void invalidLoginSession() throws SQLException {
         loginField.setValue(DBInteractionPage.getLogin());
+        passwordField.setValue(DataHelper.getPasswordUser2());
+        loginButton.click();
+        errorNotification.shouldBe(Condition.visible);
+    }
+
+    public void invalidThreePassword() throws SQLException {
+        loginField.setValue(DBInteractionPage.getLogin());
+        passwordField.setValue(DataHelper.getPasswordUser2());
+        loginButton.click();
+        passwordField.doubleClick();
+        passwordField.sendKeys(Keys.DELETE);
+        passwordField.setValue(DataHelper.getPasswordUser2());
+        loginButton.click();
+        passwordField.doubleClick();
+        passwordField.sendKeys(Keys.DELETE);
         passwordField.setValue(DataHelper.getPasswordUser2());
         loginButton.click();
         errorNotification.shouldBe(Condition.visible);

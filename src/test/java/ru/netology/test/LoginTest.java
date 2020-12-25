@@ -11,10 +11,12 @@ import ru.netology.page.VerificationPage;
 
 import java.sql.SQLException;
 
+import static com.codeborne.selenide.Selenide.open;
+
 public class LoginTest {
 
     @BeforeEach
-    void openBrowser() { DataHelper.openBrowser(); }
+    void openBrowser() { open("http://localhost:9999"); }
 
     @AfterAll
     static void cleanTables() throws SQLException { DBInteractionPage.deleteTable(); }
@@ -50,4 +52,10 @@ public class LoginTest {
         DBInteractionPage.deleteCodes();
     }
 
+    @Test
+    void shouldShowErrorNotificationThreeTimesWrongPassword() throws SQLException {
+        LoginPage login = new LoginPage();
+        login.invalidThreePassword();
+        DBInteractionPage.deleteCodes();
+    }
 }
